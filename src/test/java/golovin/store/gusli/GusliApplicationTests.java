@@ -1,0 +1,13 @@
+package golovin.store.gusli;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class GusliApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

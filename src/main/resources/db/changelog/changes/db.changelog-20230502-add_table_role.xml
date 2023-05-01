@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+
+    <changeSet id="db.changelog-20230502-add_table_role.xml-1" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints unique="true" nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(64)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230502-add_table_role.xml-2" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="role"/>
+            <sqlCheck expectedResult="0">SELECT COUNT(*)
+                                         FROM role
+                                         WHERE name = 'ADMIN_ROLE'</sqlCheck>
+        </preConditions>
+
+        <comment>add role admin</comment>
+        <insert tableName="role">
+            <column name="name" value="ADMIN_ROLE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230502-add_table_role.xml-3" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="role"/>
+            <sqlCheck expectedResult="0">SELECT COUNT(*)
+                                         FROM role
+                                         WHERE name = 'USER_ROLE'</sqlCheck>
+        </preConditions>
+
+        <comment>add role user</comment>
+        <insert tableName="role">
+            <column name="name" value="USER_ROLE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230502-add_table_role.xml-4" author="golovin">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="role"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM pg_indexes
+                WHERE indexname = 'role_name_idx'
+            </sqlCheck>
+        </preConditions>
+        <comment>add index role role_name_idx</comment>
+        <createIndex indexName="role_name_idx" tableName="role">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
