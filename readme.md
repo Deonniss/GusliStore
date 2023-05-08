@@ -23,7 +23,7 @@ GusliStore - интернет-магазин. Мы предлагаем широ
 
 Магазин GusliStore использует следующие технологии:
 
-* Backend: Java 17, gradle, liquibase, openApi-3
+* Backend: Java 17, Spring Boot 3,  gradle, liquibase, openApi-3
 * Frontend: [FRONTEND_TECHNOLOGIES]
 * База данных: PostgreSQL 14
 
