@@ -27,6 +27,12 @@
             <column name="description" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
+            <column name="avg_rating" type="real">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_review" type="integer">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
