@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+
+    <changeSet id="db.changelog-20230508-add_table_order_item.xml-1" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="order_item"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="order_item">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints unique="true" nullable="false" primaryKey="true"/>
+            </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="integer">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="double precision">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230508-add_table_order_item.xml-2" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="order_item"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyTableName="order_item"
+                                            foreignKeyName="fk_order_item_order_id"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint constraintName="fk_order_item_order_id"
+                                 baseTableName="order_item"
+                                 baseColumnNames="order_id"
+                                 referencedTableName="order"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230508-add_table_order_item.xml-3" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="order_item"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyTableName="order_item"
+                                            foreignKeyName="fk_order_item_product_id"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint constraintName="fk_order_item_product_id"
+                                 baseTableName="order_item"
+                                 baseColumnNames="product_id"
+                                 referencedTableName="product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
