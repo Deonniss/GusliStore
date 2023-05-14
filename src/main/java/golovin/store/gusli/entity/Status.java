@@ -1,6 +1,6 @@
 package golovin.store.gusli.entity;
 
-import golovin.store.gusli.entity.type.RoleType;
+import golovin.store.gusli.entity.type.StatusType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,11 +10,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "role")
-public class Role {
+@Table(name = "status")
+public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private RoleType name;
+    private StatusType code;
+    private String name;
+    private String description;
 }
