@@ -24,7 +24,8 @@ dependencies {
 
     implementation 'org.liquibase:liquibase-core'
     implementation "org.mapstruct:mapstruct:$mapstructVersion"
-    implementation "jakarta.validation:jakarta.validation-api:$jakartaVersion"
+    implementation "org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion"
+    implementation "jakarta.validation:jakarta.validation-api:$jakartaValidatorVersion"
 
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
