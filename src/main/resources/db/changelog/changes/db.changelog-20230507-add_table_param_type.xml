@@ -3,15 +3,15 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
 
-    <changeSet id="db.changelog-20230508-add_table_status.xml-1" author="golovin">
+    <changeSet id="db.changelog-20230507-add_table_param.xml-1" author="golovin">
 
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="status"/>
+                <tableExists tableName="param"/>
             </not>
         </preConditions>
 
-        <createTable tableName="status">
+        <createTable tableName="param">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints unique="true" nullable="false" primaryKey="true"/>
             </column>
@@ -21,7 +21,7 @@
             <column name="name" type="varchar(32)">
                 <constraints unique="true" nullable="false"/>
             </column>
-            <column name="description" type="varchar(128)">
+            <column name="description" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

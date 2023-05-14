@@ -1,6 +1,6 @@
 package golovin.store.gusli.entity;
 
-import golovin.store.gusli.entity.type.StatusType;
+import golovin.store.gusli.entity.type.ParamType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,13 +10,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "status")
-public class Status {
+@Table(name = "param")
+public class Param {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private StatusType type;
+    private ParamType type;
     private String name;
     private String description;
 }

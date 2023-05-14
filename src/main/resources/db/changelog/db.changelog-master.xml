@@ -8,6 +8,7 @@
     <include file="/db/changelog/changes/db.changelog-20230502-add_table_role.xml"/>
     <include file="/db/changelog/changes/db.changelog-20230502-add_table_user.xml"/>
     <include file="/db/changelog/changes/db.changelog-20230502-add_table_user_role.xml"/>
+    <include file="/db/changelog/changes/db.changelog-20230507-add_table_param_type.xml"/>
     <include file="/db/changelog/changes/db.changelog-20230508-add_table_cart.xml"/>
     <include file="/db/changelog/changes/db.changelog-20230508-add_table_status.xml"/>
     <include file="/db/changelog/changes/db.changelog-20230508-add_table_order.xml"/>

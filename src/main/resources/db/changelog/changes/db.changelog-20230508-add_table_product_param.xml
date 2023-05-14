@@ -18,10 +18,19 @@
             <column name="product_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
+            <column name="param_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
             <column name="name" type="varchar(32)">
                 <constraints nullable="false"/>
             </column>
             <column name="value" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="timestamp with time zone">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -41,6 +50,23 @@
                                  baseTableName="product_param"
                                  baseColumnNames="product_id"
                                  referencedTableName="product"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230508-add_table_product_param.xml-3" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="product_param"/>
+            <not>
+                <foreignKeyConstraintExists foreignKeyTableName="product_param"
+                                            foreignKeyName="fk_product_param_id"/>
+            </not>
+        </preConditions>
+
+        <addForeignKeyConstraint constraintName="fk_product_param_id"
+                                 baseTableName="product_param"
+                                 baseColumnNames="param_id"
+                                 referencedTableName="param"
                                  referencedColumnNames="id"/>
     </changeSet>
 

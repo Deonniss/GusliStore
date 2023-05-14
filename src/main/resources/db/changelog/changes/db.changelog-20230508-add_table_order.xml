@@ -21,7 +21,7 @@
             <column name="status_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_price" type="double precision">
+            <column name="total_cost" type="double precision">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="timestamp with time zone">

@@ -16,24 +16,25 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "product_param")
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class ProductParam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "product_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
+    private Product product;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "param_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Status status;
-    private Double totalCost;
+    private Param paramType;
+    private String name;
+    private String value;
     @CreatedDate
     private ZonedDateTime createdAt;
     @LastModifiedDate
