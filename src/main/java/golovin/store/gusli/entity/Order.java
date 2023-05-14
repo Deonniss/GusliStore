@@ -2,7 +2,8 @@ package golovin.store.gusli.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,17 +16,24 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "order")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
-    private String password;
-    private String firstName;
-    private String lastName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "status_id")
+    @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Status status;
+    private double totalPrice;
     @CreatedDate
     private ZonedDateTime createdAt;
     @LastModifiedDate
