@@ -44,7 +44,7 @@ public class ProductRestController {
     }
 
     @DeleteMapping("/{productId}")
-    public ResponseEntity<ProductDto> deleteProduct(@PathVariable @Positive(message = "productId must be positive") Long productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable @Positive(message = "productId must be positive") Long productId) {
         productService.deleteProduct(productId);
         return ResponseEntity.noContent().build();
     }

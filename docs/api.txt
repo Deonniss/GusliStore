@@ -17,10 +17,11 @@ GET /roles
 + PUT /products/update/{product_id}
 + DELETE /products/delete/{product_id}
 
-GET /categories
-POST /products/add
-PUT /categories/{category_id}
-DELETE /categories/{category_id}
++ GET /categories
++ GET /category
++ POST /products/add
++ PUT /categories/{category_id}
++ DELETE /categories/{category_id}
 
 Блок заказ
 
