@@ -19,6 +19,12 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductMapper productMapper;
+    private final CategoryService categoryService;
+
+    @SneakyThrows
+    public ProductDto getProduct(Long id) {
+        return productMapper.toDto(productRepository.findById(id).orElseThrow());
+    }
 
     @SneakyThrows
     public PageableResponse<ProductDto> getProducts(Pageable pageable) {
@@ -27,5 +33,24 @@ public class ProductService {
                 .items(productMapper.toDtos(products.getContent()))
                 .total(products.getTotalElements())
                 .build();
+    }
+
+    @SneakyThrows
+    @Transactional
+    public ProductDto saveProduct(Long categoryId, ProductDto dto) {
+        return productMapper.toDto(productRepository.save(productMapper.toEntity(dto, categoryService.getById(categoryId))));
+    }
+
+    @SneakyThrows
+    @Transactional
+    public ProductDto updateProduct(Long productId, ProductDto dto) {
+        Product product = productRepository.findById(productId).orElseThrow();
+        return productMapper.toDto(productRepository.save(productMapper.updateEntity(product, dto)));
+    }
+
+    @SneakyThrows
+    @Transactional
+    public void deleteProduct(Long productId) {
+        productRepository.deleteById(productId);
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 
 @Data
 @Builder(toBuilder = true)
@@ -23,7 +23,7 @@ public class Category {
     private Long id;
     private String name;
     @CreatedDate
-    private ZonedDateTime createdAt;
+    private Timestamp createdAt;
     @LastModifiedDate
-    private ZonedDateTime updatedAt;
+    private Timestamp updatedAt;
 }

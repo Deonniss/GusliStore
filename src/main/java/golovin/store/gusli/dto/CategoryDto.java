@@ -2,7 +2,7 @@ package golovin.store.gusli.dto;
 
 import lombok.*;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
 
 @Data
 @Builder(toBuilder = true)
@@ -13,6 +13,6 @@ public class CategoryDto {
 
     private Long id;
     private String name;
-    private ZonedDateTime createdAt;
-    private ZonedDateTime updatedAt;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 }

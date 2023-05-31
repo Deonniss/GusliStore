@@ -10,12 +10,12 @@ GET /roles
 
 Блок товары/каталог
 
-GET /products
-GET /products/{product_id}
-GET /products/{category_id}
-POST /products/add
-PUT /products/update/{product_id}
-DELETE /products/delete/{product_id}
++ GET /products
++ GET /products/{product_id}
+? GET /products/{category_id}
++ POST /products/category/{categoryId}
++ PUT /products/update/{product_id}
++ DELETE /products/delete/{product_id}
 
 GET /categories
 POST /products/add

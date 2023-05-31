@@ -13,5 +13,5 @@ public interface EntityMapper<D, E>  {
     List <D> toDtos(List<E> entityList);
 
     @Mapping(target = "id", ignore = true)
-    void updateEntity(@MappingTarget E entity, D dto);
+    E updateEntity(@MappingTarget E entity, D dto);
 }
