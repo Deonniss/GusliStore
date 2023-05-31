@@ -24,6 +24,9 @@
             <column name="file_path" type="varchar(256)">
                 <constraints nullable="false"/>
             </column>
+            <column name="extension" type="varchar(8)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 
@@ -43,23 +46,5 @@
                                  referencedTableName="product"
                                  referencedColumnNames="id"/>
     </changeSet>
-
-    <changeSet id="db.changelog-20230508-add_table_media.xml-3" author="golovin">
-
-        <preConditions onFail="MARK_RAN">
-            <tableExists tableName="media"/>
-            <not>
-                <foreignKeyConstraintExists foreignKeyTableName="media"
-                                            foreignKeyName="fk_media_media_type_id"/>
-            </not>
-        </preConditions>
-
-        <addForeignKeyConstraint constraintName="fk_media_media_type_id"
-                                 baseTableName="media"
-                                 baseColumnNames="media_type_id"
-                                 referencedTableName="media_type"
-                                 referencedColumnNames="id"/>
-    </changeSet>
-
 
 </databaseChangeLog>

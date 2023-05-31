@@ -16,19 +16,25 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "password_reset_token")
+@Table(name = "order_item")
 @EntityListeners(AuditingEntityListener.class)
-public class PasswordResetToken {
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Double price;
+    private Integer quantity;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "order_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User user;
-    private String token;
+    private Order order;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @ToString.Exclude
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Product product;
     @CreatedDate
     private Timestamp createdAt;
     @LastModifiedDate

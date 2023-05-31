@@ -1,0 +1,48 @@
+блок авторизации
+
+POST /login
+POST /logout
+POST /register
+PUT /users/update/{order_id}
+GET /users
+GET /users/{user_id}
+GET /roles
+
+Блок товары/каталог
+
++ GET /products
++ GET /products/{product_id}
+? GET /products/{category_id}
++ POST /products/category/{categoryId}
++ PUT /products/update/{product_id}
++ DELETE /products/delete/{product_id}
+
++ GET /categories
++ GET /category
++ POST /products/add
++ PUT /categories/{category_id}
++ DELETE /categories/{category_id}
+
+Блок заказ
+
+POST /orders/create
+GET /orders/{user_id}
+GET /orders/{order_id}
+PUT /orders/{order_id}
+
+Блок корзина
+
+POST /cart/add 
+GET /cart/{user_id}
+PUT /cart/update/{user_id}
+DELETE /cart/clear/{user_id}
+
+Блок отзывов
+
+GET /reviews/{product_id}
+GET /reviews/{product_id}/{review_id}
+POST /reviews/add/{product_id}
+PUT /reviews/{product_id}/{review_id}
+DELETE /reviews/{product_id}/{review_id}
+GET /reviews/{user_id}
+
