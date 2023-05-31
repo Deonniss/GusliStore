@@ -1,8 +1,8 @@
 package golovin.store.gusli.controller.rest;
 
+import golovin.store.gusli.service.*;
 import golovin.store.gusli.common.PageableResponse;
 import golovin.store.gusli.dto.ProductDto;
-import golovin.store.gusli.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,8 +21,8 @@ public class ProductRestController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<PageableResponse<ProductDto>> getProducts(@PageableDefault Pageable pageable) {
+    public ResponseEntity<PageableResponse<ProductDto>> getProducts(@PageableDefault Pageable pageable, Integer a) {
+        if (a == null) throw new RuntimeException("a is null");
         return ResponseEntity.ok(productService.getProducts(pageable));
     }
-
 }
