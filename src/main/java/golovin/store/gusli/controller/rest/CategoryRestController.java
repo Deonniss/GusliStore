@@ -38,7 +38,7 @@ public class CategoryRestController {
 
     @PutMapping("/{categoryId}")
     public ResponseEntity<CategoryDto> updateProduct(@PathVariable @Positive(message = "categoryId must be positive") Long categoryId,
-                                                    @RequestBody @Valid CategoryDto dto) {
+                                                     @RequestBody @Valid CategoryDto dto) {
         return ResponseEntity.ok(categoryService.updateProduct(categoryId, dto));
     }
 

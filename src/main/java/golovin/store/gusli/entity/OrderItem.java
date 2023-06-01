@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 
 @Data
 @Builder(toBuilder = true)
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"order", "product"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,20 +23,26 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private Double price;
+
     private Integer quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Order order;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
+
     @CreatedDate
     private Timestamp createdAt;
+
     @LastModifiedDate
     private Timestamp updatedAt;
 }

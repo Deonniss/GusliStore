@@ -1,0 +1,54 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="db.changelog-20230601-add_statuses.xml-1" author="golovin">
+        <insert tableName="status">
+            <column name="type" value="CREATED"/>
+            <column name="name" value="Создан"/>
+            <column name="description" value="Заказ создан"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="PROCESSING"/>
+            <column name="name" value="Обработка"/>
+            <column name="description" value="Обработка заказа"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="READY_TO_SENT"/>
+            <column name="name" value="Готов к отправке"/>
+            <column name="description" value="Заказ готов к отправке"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="SENT"/>
+            <column name="name" value="Отправлен"/>
+            <column name="description" value="Заказ отправлен"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="DELIVERED"/>
+            <column name="name" value="Доставлен"/>
+            <column name="description" value="Заказ доставлен"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="CANCELED"/>
+            <column name="name" value="Отменен"/>
+            <column name="description" value="Заказ отменен"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="REFUND"/>
+            <column name="name" value="Запрошен возврат"/>
+            <column name="description" value="Запрошен возврат заказа"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="REFUNDED"/>
+            <column name="name" value="Возвращен"/>
+            <column name="description" value="Заказ возвращен"/>
+        </insert>
+        <insert tableName="status">
+            <column name="type" value="COMPLETED"/>
+            <column name="name" value="Выполнен"/>
+            <column name="description" value="Заказ выполнен"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
