@@ -22,6 +22,11 @@ public class ProductService {
     private final CategoryService categoryService;
 
     @SneakyThrows
+    public Product getById(Long id) {
+        return productRepository.findById(id).orElseThrow();
+    }
+
+    @SneakyThrows
     public ProductDto getProduct(Long id) {
         return productMapper.toDto(productRepository.findById(id).orElseThrow());
     }
