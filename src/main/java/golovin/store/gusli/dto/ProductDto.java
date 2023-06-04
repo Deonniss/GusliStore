@@ -37,7 +37,7 @@ public class ProductDto {
     private double avgRating;
 
     @JsonProperty(access = READ_ONLY)
-    private double totalReview;
+    private int totalReview;
 
     @JsonProperty(access = READ_ONLY)
     private Timestamp createdAt;

@@ -27,7 +27,7 @@ public class Product {
     private Double price;
     private String description;
     private Double avgRating;
-    private Double totalReview;
+    private Integer totalReview;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     @ToString.Exclude
