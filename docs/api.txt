@@ -35,7 +35,7 @@ GET /roles
 Блок корзина
 
 POST /cart/add 
-GET /cart/{user_id}
+1 GET /cart/{user_id}
 PUT /cart/update/{user_id}
 DELETE /cart/clear/{user_id}
 

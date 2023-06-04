@@ -7,7 +7,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 @Data
 @Builder(toBuilder = true)
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"cart", "product"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
