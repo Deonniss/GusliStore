@@ -25,7 +25,7 @@ GET /roles
 
 Блок заказ
 
-POST /orders/create
++ POST /orders/{userId}
 GET /orders/{user_id}
 GET /orders/{order_id}
 PUT /orders/{order_id}

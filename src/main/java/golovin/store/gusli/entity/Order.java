@@ -32,7 +32,7 @@ public class Order {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)

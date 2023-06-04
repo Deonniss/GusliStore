@@ -1,10 +1,13 @@
 package golovin.store.gusli.controller.rest;
 
+import golovin.store.gusli.common.PageableResponse;
 import golovin.store.gusli.dto.OrderDto;
 import golovin.store.gusli.service.OrderService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,6 +30,12 @@ public class OrderRestController {
 //    public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PageableDefault Pageable pageable) {
 //        return ResponseEntity.ok(orderService.getOrders(pageable));
 //    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PathVariable @Positive(message = "userId must be positive") Long userId,
+                                                                @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(orderService.getOrders(userId, pageable));
+    }
 
     @PostMapping("/{userId}")
     public ResponseEntity<OrderDto> createOrder(@PathVariable @Positive(message = "userId must be positive") Long userId,
