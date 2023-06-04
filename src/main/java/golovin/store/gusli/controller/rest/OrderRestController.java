@@ -2,8 +2,10 @@ package golovin.store.gusli.controller.rest;
 
 import golovin.store.gusli.common.PageableResponse;
 import golovin.store.gusli.dto.OrderDto;
+import golovin.store.gusli.entity.type.StatusType;
 import golovin.store.gusli.service.OrderService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -31,7 +33,12 @@ public class OrderRestController {
 //        return ResponseEntity.ok(orderService.getOrders(pageable));
 //    }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderDto> getOrder(@PathVariable @Positive(message = "orderId must be positive") Long orderId) {
+        return ResponseEntity.ok(orderService.getOrder(orderId));
+    }
+
+    @GetMapping("/user/{userId}")
     public ResponseEntity<PageableResponse<OrderDto>> getOrders(@PathVariable @Positive(message = "userId must be positive") Long userId,
                                                                 @PageableDefault Pageable pageable) {
         return ResponseEntity.ok(orderService.getOrders(userId, pageable));
@@ -41,6 +48,12 @@ public class OrderRestController {
     public ResponseEntity<OrderDto> createOrder(@PathVariable @Positive(message = "userId must be positive") Long userId,
                                                 @RequestBody @Valid OrderDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.registerOrder(userId, dto));
+    }
+
+    @PatchMapping("/{orderId}")
+    public ResponseEntity<OrderDto> changeOrderStatus(@PathVariable @Positive(message = "orderId must be positive") Long orderId,
+                                                      @RequestParam @NotNull StatusType status) {
+        return ResponseEntity.ok(orderService.changeOrderStatus(orderId, status));
     }
 
 //    @PutMapping("/{orderId}")

@@ -26,8 +26,9 @@ GET /roles
 Блок заказ
 
 + POST /orders/{userId}
-GET /orders/{user_id}
-GET /orders/{order_id}
++ GET /orders/user/{user_id}
++ GET /orders/{order_id}
++ PATCH /orders/{order_id} status change
 PUT /orders/{order_id}
 
 Блок корзина

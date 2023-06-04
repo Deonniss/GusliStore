@@ -5,6 +5,7 @@ import golovin.store.gusli.dto.OrderDto;
 import golovin.store.gusli.entity.Order;
 import golovin.store.gusli.entity.Status;
 import golovin.store.gusli.entity.User;
+import golovin.store.gusli.entity.type.StatusType;
 import golovin.store.gusli.mapper.OrderMapper;
 import golovin.store.gusli.mapper.ProductMapper;
 import golovin.store.gusli.repository.OrderRepository;
@@ -30,6 +31,11 @@ public class OrderService {
     private final UserService userService;
 
     @SneakyThrows
+    public OrderDto getOrder(Long orderId) {
+        return orderMapper.toDto(orderRepository.findById(orderId).orElseThrow());
+    }
+
+    @SneakyThrows
     public PageableResponse<OrderDto> getOrders(Long userId, Pageable pageable) {
         Page<Order> orders = orderRepository.getAllByUserId(userId, pageable);
         return new PageableResponse<OrderDto>().toBuilder()
@@ -48,9 +54,15 @@ public class OrderService {
     }
 
     @SneakyThrows
+    @Transactional
+    public OrderDto changeOrderStatus(Long orderId, StatusType status) {
+        Order order = orderRepository.findById(orderId).orElseThrow();
+        order.setStatus(statusService.getByType(status));
+        return orderMapper.toDto(orderRepository.save(order));
+    }
+
+    @SneakyThrows
     private void fillProducts(OrderDto dto) {
         dto.getItems().forEach(i -> i.setProduct(productMapper.toDto(productService.getById(i.getProductId()))));
     }
-
-
 }
