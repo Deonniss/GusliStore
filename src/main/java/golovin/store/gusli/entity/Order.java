@@ -49,4 +49,8 @@ public class Order {
 
     @LastModifiedDate
     private Timestamp updatedAt;
+
+    public void addCost(double cost) {
+        totalCost += cost;
+    }
 }

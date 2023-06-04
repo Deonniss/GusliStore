@@ -1,7 +1,6 @@
 package golovin.store.gusli.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -21,8 +20,7 @@ public class OrderItemDto {
     @JsonProperty(access = READ_ONLY)
     private Long id;
 
-    @NotNull(message = "Price is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
+    @JsonProperty(access = READ_ONLY)
     private Double price;
 
     @NotNull(message = "Quantity is required")

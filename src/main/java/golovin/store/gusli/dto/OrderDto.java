@@ -2,7 +2,6 @@ package golovin.store.gusli.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import golovin.store.gusli.entity.Status;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -25,9 +24,8 @@ public class OrderDto {
     @JsonProperty(access = READ_ONLY)
     private Status status;
 
-    @NotNull(message = "TotalCost is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "TotalCost must be greater than zero")
-    private Double totalCost;
+    @JsonProperty(access = READ_ONLY)
+    private double totalCost;
 
     @NotNull
     @NotEmpty
@@ -38,4 +36,8 @@ public class OrderDto {
 
     @JsonProperty(access = READ_ONLY)
     private Timestamp updatedAt;
+
+    public void addCost(double cost) {
+        totalCost += cost;
+    }
 }
