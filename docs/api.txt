@@ -32,7 +32,6 @@ GET /roles
 + POST add orderItem
 + DELETE del orderItem
 
-
 Блок корзина
 
 POST /cart/add 
