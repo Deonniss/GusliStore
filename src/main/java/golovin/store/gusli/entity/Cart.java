@@ -31,7 +31,7 @@ public class Cart {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    private Integer totalProduct;
+    private Integer totalQuantity;
 
     private Double totalCost;
 
@@ -49,10 +49,30 @@ public class Cart {
     }
 
     public void addCost(Double cost) {
+        if (cost <= 0) {
+            throw new RuntimeException("The cost must be greater than 0");
+        }
         this.totalCost += cost;
     }
 
     public void addQuantity(Integer quantity) {
-        this.totalProduct += quantity;
+        if (quantity <= 0) {
+            throw new RuntimeException("The quantity must be greater than 0");
+        }
+        this.totalQuantity += quantity;
+    }
+
+    public void minusCost(double cost) {
+        if (cost > totalCost || cost <= 0) {
+            throw new RuntimeException("The total cost should be greater than the cost price");
+        }
+        totalCost -= cost;
+    }
+
+    public void minusQuantity(Integer quantity) {
+        if (quantity > totalCost || quantity <= 0) {
+            throw new RuntimeException("The total quantity should be greater than the quantity");
+        }
+        this.totalQuantity -= quantity;
     }
 }

@@ -5,6 +5,7 @@ import golovin.store.gusli.dto.OrderDto;
 import golovin.store.gusli.dto.OrderItemDto;
 import golovin.store.gusli.dto.ProductDto;
 import golovin.store.gusli.entity.Order;
+import golovin.store.gusli.entity.OrderItem;
 import golovin.store.gusli.entity.Status;
 import golovin.store.gusli.entity.User;
 import golovin.store.gusli.entity.type.StatusType;
@@ -86,6 +87,10 @@ public class OrderService {
     @SneakyThrows
     @Transactional
     public void deleteOrderItem(Long orderItemId) {
+        OrderItem orderItem = orderItemRepository.findById(orderItemId).orElseThrow();
+        Order order = orderItem.getOrder();
+        order.minusQuantity(orderItem.getQuantity());
+        order.minusCost(orderItem.getPrice());
         orderItemRepository.deleteById(orderItemId);
     }
 
@@ -95,7 +100,8 @@ public class OrderService {
             ProductDto product = productMapper.toDto(productService.getById(i.getProductId()));
             i.setProduct(product);
             i.setPrice(product.getPrice() * i.getQuantity());
-            dto.addCost(product.getPrice() * i.getQuantity());
+            dto.addCost(i.getPrice());
+            dto.addQuantity(i.getQuantity());
         });
     }
 
@@ -103,13 +109,14 @@ public class OrderService {
     private void addOrderItemToList(Order order, OrderItemDto dto) {
         fillProduct(dto);
         order.getItems().add(orderItemMapper.toEntity(dto));
-        order.addCost(dto.getPrice() * dto.getQuantity());
+        order.addCost(dto.getPrice());
+        order.addQuantity(dto.getQuantity());
     }
 
     @SneakyThrows
     private void fillProduct(OrderItemDto dto) {
         ProductDto product = productMapper.toDto(productService.getById(dto.getProductId()));
         dto.setProduct(product);
-        dto.setPrice(product.getPrice());
+        dto.setPrice(product.getPrice() * dto.getQuantity());
     }
 }

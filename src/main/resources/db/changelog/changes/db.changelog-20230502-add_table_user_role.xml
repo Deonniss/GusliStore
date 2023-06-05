@@ -36,7 +36,7 @@
         <addForeignKeyConstraint constraintName="fk_user_id"
                                  baseTableName="user_role"
                                  baseColumnNames="user_id"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"/>
     </changeSet>
 
@@ -87,7 +87,7 @@
             </sqlCheck>
         </preConditions>
 
-        <comment>add user_role user</comment>
+        <comment>add user_role users</comment>
         <insert tableName="user_role">
             <column name="user_id" value="2"/>
             <column name="role_id" value="2"/>

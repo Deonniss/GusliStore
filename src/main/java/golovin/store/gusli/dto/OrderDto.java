@@ -27,6 +27,9 @@ public class OrderDto {
     @JsonProperty(access = READ_ONLY)
     private double totalCost;
 
+    @JsonProperty(access = READ_ONLY)
+    private int totalQuantity;
+
     @NotNull
     @NotEmpty
     private Set<OrderItemDto> items;
@@ -38,6 +41,10 @@ public class OrderDto {
     private Timestamp updatedAt;
 
     public void addCost(double cost) {
-        totalCost += cost;
+        this.totalCost += cost;
+    }
+
+    public void addQuantity(int quantity) {
+        this.totalQuantity += quantity;
     }
 }

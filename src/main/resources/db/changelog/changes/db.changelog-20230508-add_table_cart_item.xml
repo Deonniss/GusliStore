@@ -24,6 +24,9 @@
             <column name="quantity" type="integer">
                 <constraints nullable="false"/>
             </column>
+            <column name="price" type="double precision">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

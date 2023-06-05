@@ -4,6 +4,7 @@ import golovin.store.gusli.dto.CartDto;
 import golovin.store.gusli.dto.CartItemDto;
 import golovin.store.gusli.entity.Cart;
 import golovin.store.gusli.entity.CartItem;
+import golovin.store.gusli.entity.Product;
 import golovin.store.gusli.entity.User;
 import golovin.store.gusli.mapper.CartItemMapper;
 import golovin.store.gusli.mapper.CartMapper;
@@ -45,14 +46,16 @@ public class CartService {
     private void fillCart(Cart cart, CartItem cartItem) {
         cart.addItem(cartItem);
         cart.addQuantity(cartItem.getQuantity());
-        cart.addCost(cartItem.getProduct().getPrice() * cartItem.getQuantity());
+        cart.addCost(cartItem.getPrice());
     }
 
     @SneakyThrows
     private CartItem saveCartItem(Cart cart, CartItemDto dto) {
         CartItem cartItem = cartItemMapper.toEntity(dto);
         cartItem.setCart(cart);
-        cartItem.setProduct(productService.getById(dto.getProductId()));
+        Product product = productService.getById(dto.getProductId());
+        cartItem.setProduct(product);
+        cartItem.setPrice(dto.getQuantity() * product.getPrice());
         cartItemRepository.save(cartItem);
         return cartItem;
     }

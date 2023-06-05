@@ -49,7 +49,7 @@
         <addForeignKeyConstraint constraintName="fk_review_user_id"
                                  baseTableName="review"
                                  baseColumnNames="user_id"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"/>
     </changeSet>
 

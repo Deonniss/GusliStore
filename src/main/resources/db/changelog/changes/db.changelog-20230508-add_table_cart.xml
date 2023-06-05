@@ -18,7 +18,7 @@
             <column name="user_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_product" type="integer">
+            <column name="total_quantity" type="integer">
                 <constraints nullable="false"/>
             </column>
             <column name="total_cost" type="double precision">
@@ -46,7 +46,7 @@
         <addForeignKeyConstraint constraintName="fk_cart_user_id"
                                  baseTableName="cart"
                                  baseColumnNames="user_id"
-                                 referencedTableName="user"
+                                 referencedTableName="users"
                                  referencedColumnNames="id"/>
     </changeSet>
 

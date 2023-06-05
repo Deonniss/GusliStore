@@ -7,11 +7,11 @@
 
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="user"/>
+                <tableExists tableName="users"/>
             </not>
         </preConditions>
 
-        <createTable tableName="user">
+        <createTable tableName="users">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints unique="true" nullable="false" primaryKey="true"/>
             </column>
@@ -39,16 +39,16 @@
     <changeSet id="db.changelog-20230502-add_table_user.xml-2" author="golovin">
 
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="user"/>
+            <tableExists tableName="users"/>
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM public.user
+                FROM public.users
                 WHERE email = 'admin@gmail.ru'
             </sqlCheck>
         </preConditions>
 
-        <comment>add user admin</comment>
-        <insert tableName="user">
+        <comment>add users admin</comment>
+        <insert tableName="users">
             <column name="email" value="admin@gmail.ru"/>
             <column name="first_name" value="admin"/>
             <column name="last_name" value="admin"/>
@@ -61,16 +61,16 @@
     <changeSet id="db.changelog-20230502-add_table_user.xml-3" author="golovin">
 
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="user"/>
+            <tableExists tableName="users"/>
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
-                FROM public.user
-                WHERE email = 'user@gmail.ru'
+                FROM public.users
+                WHERE email = 'users@gmail.ru'
             </sqlCheck>
         </preConditions>
 
-        <comment>add user user</comment>
-        <insert tableName="user">
+        <comment>add users users</comment>
+        <insert tableName="users">
             <column name="email" value="user@gmail.ru"/>
             <column name="first_name" value="user"/>
             <column name="last_name" value="user"/>
@@ -82,15 +82,15 @@
 
     <changeSet id="db.changelog-20230502-add_table_user.xml-4" author="golovin">
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="user"/>
+            <tableExists tableName="users"/>
             <sqlCheck expectedResult="0">
                 SELECT COUNT(*)
                 FROM pg_indexes
                 WHERE indexname = 'user_email_idx'
             </sqlCheck>
         </preConditions>
-        <comment>add index user user_email_idx</comment>
-        <createIndex indexName="user_email_idx" tableName="user">
+        <comment>add index users user_email_idx</comment>
+        <createIndex indexName="user_email_idx" tableName="users">
             <column name="email"/>
         </createIndex>
     </changeSet>

@@ -16,7 +16,11 @@ public class CartItemDto {
 
     @JsonProperty(access = READ_ONLY)
     private Long id;
+
     private Integer quantity;
+
+    @JsonProperty(access = READ_ONLY)
+    private Integer price;
 
     @JsonProperty(access = READ_ONLY)
     private ProductDto product;

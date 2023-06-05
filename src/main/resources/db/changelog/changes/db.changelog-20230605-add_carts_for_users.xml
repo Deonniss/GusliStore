@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+
+
+    <changeSet id="db.changelog-20230605-add_carts_for_users.xml-1" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="cart"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM public.cart
+                WHERE user_id = 1
+            </sqlCheck>
+        </preConditions>
+
+        <comment>add cart for default users</comment>
+        <insert tableName="cart">
+            <column name="user_id" value="1"/>
+            <column name="total_quantity" value="0"/>
+            <column name="total_cost" value="0"/>
+            <column name="created_at" value="2023-05-09 12:30:00+03"/>
+            <column name="updated_at" value="2023-05-09 12:30:00+03"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="db.changelog-20230605-add_carts_for_users.xml-2" author="golovin">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="cart"/>
+            <sqlCheck expectedResult="0">
+                SELECT COUNT(*)
+                FROM public.cart
+                WHERE user_id = 2
+            </sqlCheck>
+        </preConditions>
+
+        <comment>add cart for default users</comment>
+        <insert tableName="cart">
+            <column name="user_id" value="2"/>
+            <column name="total_quantity" value="0"/>
+            <column name="total_cost" value="0"/>
+            <column name="created_at" value="2023-05-09 12:30:00+03"/>
+            <column name="updated_at" value="2023-05-09 12:30:00+03"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

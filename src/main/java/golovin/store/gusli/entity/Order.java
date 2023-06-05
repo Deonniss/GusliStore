@@ -44,6 +44,8 @@ public class Order {
 
     private Double totalCost;
 
+    private Integer totalQuantity;
+
     @CreatedDate
     private Timestamp createdAt;
 
@@ -51,6 +53,30 @@ public class Order {
     private Timestamp updatedAt;
 
     public void addCost(double cost) {
+        if (cost <= 0) {
+            throw new RuntimeException("The cost must be greater than 0");
+        }
         totalCost += cost;
+    }
+
+    public void addQuantity(Integer quantity) {
+        if (quantity <= 0) {
+            throw new RuntimeException("The quantity must be greater than 0");
+        }
+        this.totalQuantity += quantity;
+    }
+
+    public void minusCost(double cost) {
+        if (cost > totalCost || cost <= 0) {
+            throw new RuntimeException("The total cost should be greater than the cost price");
+        }
+        totalCost -= cost;
+    }
+
+    public void minusQuantity(Integer quantity) {
+        if (quantity > totalCost || quantity <= 0) {
+            throw new RuntimeException("The total quantity should be greater than the quantity");
+        }
+        this.totalQuantity -= quantity;
     }
 }
