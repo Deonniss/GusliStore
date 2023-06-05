@@ -1,8 +1,7 @@
-package mapper;
+package golovin.store.gusli.mapper;
 
 import golovin.store.gusli.dto.CategoryDto;
 import golovin.store.gusli.entity.Category;
-import golovin.store.gusli.mapper.CategoryMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 

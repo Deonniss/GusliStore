@@ -1,9 +1,8 @@
-package service;
+package golovin.store.gusli.service;
 
 import golovin.store.gusli.entity.Status;
 import golovin.store.gusli.entity.type.StatusType;
 import golovin.store.gusli.repository.StatusRepository;
-import golovin.store.gusli.service.StatusService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoSettings;

@@ -1,4 +1,4 @@
-package mapper;
+package golovin.store.gusli.mapper;
 
 import golovin.store.gusli.dto.OrderDto;
 import golovin.store.gusli.entity.Order;
@@ -6,7 +6,6 @@ import golovin.store.gusli.entity.OrderItem;
 import golovin.store.gusli.entity.Status;
 import golovin.store.gusli.entity.User;
 import golovin.store.gusli.entity.type.StatusType;
-import golovin.store.gusli.mapper.OrderMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
