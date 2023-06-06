@@ -40,4 +40,10 @@ public class ReviewRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.saveReview(userId, productId, dto));
     }
 
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable @Positive(message = "reviewId must be positive") Long reviewId) {
+        reviewService.deleteReview(reviewId);
+        return ResponseEntity.noContent().build();
+    }
+
 }

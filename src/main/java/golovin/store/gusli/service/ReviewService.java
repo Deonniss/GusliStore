@@ -53,4 +53,12 @@ public class ReviewService {
         return reviewMapper.toDto(reviewRepository.save(reviewMapper.toEntity(dto, user, product)));
     }
 
+    @SneakyThrows
+    @Transactional
+    public void deleteReview(Long reviewId) {
+        Review review =  reviewRepository.findById(reviewId).orElseThrow();
+        Product product = review.getProduct();
+        product.minusReview(review.getRating());
+        reviewRepository.delete(review);
+    }
 }
