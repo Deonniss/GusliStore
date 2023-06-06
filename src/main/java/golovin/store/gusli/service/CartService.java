@@ -44,6 +44,22 @@ public class CartService {
 
     @Transactional
     @SneakyThrows
+    public CartDto removeCartItem(Long cartId, Long cartItemId) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow();
+        CartItem cartItem = cartItemRepository.findById(cartItemId).orElseThrow();
+
+        if (!cartItem.getCart().equals(cart)) {
+            throw new RuntimeException("The cart item does not belong to this cart");
+        }
+        cart.minusCost(cartItem.getPrice());
+        cart.minusQuantity(cartItem.getQuantity());
+        cart.getItems().remove(cartItem);
+        cartItemRepository.delete(cartItem);
+        return cartMapper.toDto(cart);
+    }
+
+    @Transactional
+    @SneakyThrows
     public CartDto clearCart(Long cartId) {
         Cart cart = cartRepository.findById(cartId).orElseThrow();
         cart.setTotalCost(0d);
@@ -79,7 +95,4 @@ public class CartService {
     public void createCart(User user) {
 
     }
-
-
-
 }

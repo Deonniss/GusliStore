@@ -36,8 +36,7 @@ GET /roles
 
 + POST /cart/add
 + GET /cart/{user_id}
-DELETE /cart/item/{item_id}
-PUT /cart/update/{user_id}
++ DELETE /cart/item/{item_id}
 + DELETE /cart/clear/{user_id}
 
 Блок отзывов

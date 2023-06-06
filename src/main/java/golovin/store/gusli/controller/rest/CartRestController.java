@@ -29,6 +29,12 @@ public class CartRestController {
         return ResponseEntity.ok(cartService.addCartItem(cartId, dto));
     }
 
+    @DeleteMapping("/removeItem/{cartId}/{cartItemId}")
+    public ResponseEntity<CartDto> clearCart(@PathVariable @Positive(message = "cartId must be positive") Long cartId,
+                                             @PathVariable @Positive(message = "cartItemId must be positive") Long cartItemId) {
+        return ResponseEntity.ok(cartService.removeCartItem(cartId, cartItemId));
+    }
+
     @DeleteMapping("/clear/{cartId}")
     public ResponseEntity<CartDto> clearCart(@PathVariable @Positive(message = "cartId must be positive") Long cartId) {
         return ResponseEntity.ok(cartService.clearCart(cartId));
