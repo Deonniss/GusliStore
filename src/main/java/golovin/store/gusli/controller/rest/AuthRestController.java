@@ -3,6 +3,7 @@ package golovin.store.gusli.controller.rest;
 import golovin.store.gusli.dto.AuthRequestDto;
 import golovin.store.gusli.dto.TokenDetails;
 import golovin.store.gusli.dto.UserDto;
+import golovin.store.gusli.entity.type.LoginType;
 import golovin.store.gusli.security.CustomPrincipal;
 import golovin.store.gusli.security.SecurityService;
 import golovin.store.gusli.service.UserService;
@@ -22,9 +23,14 @@ public class AuthRestController {
     private final SecurityService securityService;
     private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<TokenDetails> login(@RequestBody @Valid AuthRequestDto dto) {
-        return ResponseEntity.ok(securityService.authenticate(dto.getUsername(), dto.getPassword()));
+    @PostMapping("/login/username")
+    public ResponseEntity<TokenDetails> loginByUsername(@RequestBody @Valid AuthRequestDto dto) {
+        return ResponseEntity.ok(securityService.authenticate(dto.getUsername(), dto.getPassword(), LoginType.USERNAME));
+    }
+
+    @PostMapping("/login/email")
+    public ResponseEntity<TokenDetails> loginByEmail(@RequestBody @Valid AuthRequestDto dto) {
+        return ResponseEntity.ok(securityService.authenticate(dto.getEmail(), dto.getPassword(), LoginType.EMAIL));
     }
 
     @PostMapping("/register")

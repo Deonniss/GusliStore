@@ -56,6 +56,11 @@ public class UserService implements UserDetailsService {
     }
 
     @SneakyThrows
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow();
+    }
+
+    @SneakyThrows
     public UserDto getUser(Long userId) {
         return userMapper.toDto(userRepository.findById(userId).orElseThrow());
     }

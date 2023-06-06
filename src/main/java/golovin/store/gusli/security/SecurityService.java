@@ -2,6 +2,7 @@ package golovin.store.gusli.security;
 
 import golovin.store.gusli.dto.TokenDetails;
 import golovin.store.gusli.entity.User;
+import golovin.store.gusli.entity.type.LoginType;
 import golovin.store.gusli.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -28,8 +29,11 @@ public class SecurityService {
     @Value("${jwt.issuer}")
     private String issuer;
 
-    public TokenDetails authenticate(String username, String password) {
-        User user = userService.getUserByUsername(username);
+    public TokenDetails authenticate(String loginName, String password, LoginType type) {
+        User user = switch (type) {
+            case EMAIL -> userService.getUserByEmail(loginName);
+            case USERNAME -> userService.getUserByUsername(loginName);
+        };
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Not authenticated");
         }
