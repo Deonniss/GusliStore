@@ -42,6 +42,16 @@ public class CartService {
         return cartMapper.toDto(cart);
     }
 
+    @Transactional
+    @SneakyThrows
+    public CartDto clearCart(Long cartId) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow();
+        cart.setTotalCost(0d);
+        cart.setTotalQuantity(0);
+        cartRepository.clearCartById(cartId);
+        return cartMapper.toDto(cart);
+    }
+
     @SneakyThrows
     private void fillCart(Cart cart, CartItem cartItem) {
         cart.addItem(cartItem);
@@ -69,6 +79,7 @@ public class CartService {
     public void createCart(User user) {
 
     }
+
 
 
 }

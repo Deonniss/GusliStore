@@ -34,10 +34,11 @@ GET /roles
 
 Блок корзина
 
-POST /cart/add 
-1 GET /cart/{user_id}
++ POST /cart/add
++ GET /cart/{user_id}
+DELETE /cart/item/{item_id}
 PUT /cart/update/{user_id}
-DELETE /cart/clear/{user_id}
++ DELETE /cart/clear/{user_id}
 
 Блок отзывов
 

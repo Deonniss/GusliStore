@@ -13,7 +13,7 @@ import java.util.List;
 public class CartDto {
 
     private Long id;
-    private Integer totalProduct;
+    private Integer totalQuantity;
     private Double totalCost;
     private List<CartItemDto> items;
     private Timestamp createdAt;
