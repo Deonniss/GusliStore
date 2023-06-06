@@ -2,6 +2,7 @@ package golovin.store.gusli.controller.rest;
 
 import golovin.store.gusli.common.PageableResponse;
 import golovin.store.gusli.dto.ReviewDto;
+import golovin.store.gusli.entity.type.ReviewFilterType;
 import golovin.store.gusli.service.ReviewService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
@@ -27,10 +28,16 @@ public class ReviewRestController {
         return ResponseEntity.ok(reviewService.getReview(userId, productId));
     }
 
-    @GetMapping("/{productId}")
+    @GetMapping("/product/{productId}")
     public ResponseEntity<PageableResponse<ReviewDto>> getReviewsByProduct(@PathVariable @Positive(message = "productId must be positive") Long productId,
                                                                            @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(reviewService.getReviews(productId, pageable));
+        return ResponseEntity.ok(reviewService.getReviews(productId, ReviewFilterType.PRODUCT, pageable));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<PageableResponse<ReviewDto>> getReviewsByUser(@PathVariable @Positive(message = "userId must be positive") Long userId,
+                                                                        @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok(reviewService.getReviews(userId, ReviewFilterType.USER, pageable));
     }
 
     @PostMapping("/{userId}/{productId}")

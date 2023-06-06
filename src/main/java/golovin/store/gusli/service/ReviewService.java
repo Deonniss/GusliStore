@@ -5,6 +5,7 @@ import golovin.store.gusli.dto.ReviewDto;
 import golovin.store.gusli.entity.Product;
 import golovin.store.gusli.entity.Review;
 import golovin.store.gusli.entity.User;
+import golovin.store.gusli.entity.type.ReviewFilterType;
 import golovin.store.gusli.mapper.ReviewMapper;
 import golovin.store.gusli.repository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,11 @@ public class ReviewService {
     }
 
     @SneakyThrows
-    public PageableResponse<ReviewDto> getReviews(Long productId, Pageable pageable) {
-        Page<Review> reviews = reviewRepository.findAllByProductId(productId, pageable);
+    public PageableResponse<ReviewDto> getReviews(Long filterId, ReviewFilterType type, Pageable pageable) {
+        Page<Review> reviews = switch (type) {
+            case USER -> reviewRepository.findAllByUserId(filterId, pageable);
+            case PRODUCT -> reviewRepository.findAllByProductId(filterId, pageable);
+        };
         return new PageableResponse<ReviewDto>().toBuilder()
                 .items(reviewMapper.toDtos(reviews.getContent()))
                 .total(reviews.getTotalElements())
