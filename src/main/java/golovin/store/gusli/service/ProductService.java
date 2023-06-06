@@ -27,6 +27,12 @@ public class ProductService {
     }
 
     @SneakyThrows
+    @Transactional
+    public void saveProduct(Product product) {
+        productRepository.save(product);
+    }
+
+    @SneakyThrows
     public ProductDto getProduct(Long id) {
         return productMapper.toDto(productRepository.findById(id).orElseThrow());
     }

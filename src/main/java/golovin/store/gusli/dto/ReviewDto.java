@@ -1,6 +1,7 @@
 package golovin.store.gusli.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Positive;
 import lombok.*;
 
@@ -19,6 +20,7 @@ public class ReviewDto {
     private Long id;
 
     @Positive(message = "rating must be positive 1-5")
+    @Max(value = 5, message = "rating must be positive 1-5")
     private Integer rating;
 
     private String comment;

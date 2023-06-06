@@ -41,9 +41,9 @@ GET /roles
 
 Блок отзывов
 
-GET /reviews/{product_id}
-GET /reviews/{product_id}/{review_id}
-POST /reviews/add/{product_id}
++ GET /reviews/{product_id}
++ GET /reviews/{user_id}/{product_id}
++ POST /reviews/{userId}/{productId}
 PUT /reviews/{product_id}/{review_id}
 DELETE /reviews/{product_id}/{review_id}
 GET /reviews/{user_id}

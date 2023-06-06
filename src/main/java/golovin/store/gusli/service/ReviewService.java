@@ -38,7 +38,6 @@ public class ReviewService {
                 .items(reviewMapper.toDtos(reviews.getContent()))
                 .total(reviews.getTotalElements())
                 .build();
-
     }
 
     @SneakyThrows
@@ -49,6 +48,8 @@ public class ReviewService {
         }
         User user = userService.getById(userId);
         Product product = productService.getById(productId);
+        product.addReview(dto.getRating());
+        productService.saveProduct(product);
         return reviewMapper.toDto(reviewRepository.save(reviewMapper.toEntity(dto, user, product)));
     }
 

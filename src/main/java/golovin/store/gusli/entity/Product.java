@@ -37,4 +37,14 @@ public class Product {
     private Timestamp createdAt;
     @LastModifiedDate
     private Timestamp updatedAt;
+
+    public void addReview(Integer rating) {
+        totalReview++;
+        avgRating = ((avgRating * (totalReview - 1)) + rating) / totalReview;
+    }
+
+    public void minusReview(Integer rating) {
+        totalReview--;
+        avgRating = ((avgRating * (totalReview + 1)) - rating) / totalReview;
+    }
 }
