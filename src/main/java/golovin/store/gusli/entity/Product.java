@@ -28,7 +28,7 @@ public class Product {
     private String description;
     private Double avgRating;
     private Integer totalReview;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
     @ToString.Exclude
     @OnDelete(action = OnDeleteAction.CASCADE)
