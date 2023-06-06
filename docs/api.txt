@@ -1,9 +1,8 @@
 блок авторизации
 
-POST /login
-POST /logout
-POST /register
-PUT /users/update/{order_id}
++ POST /login
++ POST /logout
++ POST /register
 + GET /users
 + GET /users/{user_id}
 + GET /roles
