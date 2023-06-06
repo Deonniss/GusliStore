@@ -3,6 +3,8 @@ package golovin.store.gusli.controller.exceptionHandler;
 import golovin.store.gusli.common.ErrorResponse;
 import golovin.store.gusli.logger.Log;
 import golovin.store.gusli.logger.LogFactory;
+import golovin.store.gusli.security.exception.TokenNotFoundException;
+import jakarta.servlet.ServletException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,11 @@ public class CustomExceptionHandler {
 
     @Value("${response.error.trace.enabled}")
     private boolean traceEnabled;
+
+    @ExceptionHandler(TokenNotFoundException.class)
+    public ResponseEntity<String> handleTokenNotFoundException(ServletException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal Server Error");
+    }
 
     @ExceptionHandler
     public ResponseEntity<?> handle(Exception exception) {
