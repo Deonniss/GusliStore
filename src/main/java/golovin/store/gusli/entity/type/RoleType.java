@@ -1,5 +1,5 @@
 package golovin.store.gusli.entity.type;
 
 public enum RoleType {
-    ROLE_USER, ROLE_ADMIN
+    USER_ROLE, ADMIN_ROLE
 }

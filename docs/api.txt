@@ -4,9 +4,9 @@ POST /login
 POST /logout
 POST /register
 PUT /users/update/{order_id}
-GET /users
-GET /users/{user_id}
-GET /roles
++ GET /users
++ GET /users/{user_id}
++ GET /roles
 
 Блок товары/каталог
 
