@@ -41,14 +41,20 @@ public class ReviewRestController {
     }
 
     @PostMapping("/{userId}/{productId}")
-    public ResponseEntity<ReviewDto> createProduct(@PathVariable @Positive(message = "userId must be positive") Long userId,
+    public ResponseEntity<ReviewDto> createReview(@PathVariable @Positive(message = "userId must be positive") Long userId,
                                                    @PathVariable @Positive(message = "productId must be positive") Long productId,
                                                    @RequestBody @Valid ReviewDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewService.saveReview(userId, productId, dto));
     }
 
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<ReviewDto> updateReview(@PathVariable @Positive(message = "reviewId must be positive") Long reviewId,
+                                                    @RequestBody @Valid ReviewDto dto) {
+        return ResponseEntity.ok(reviewService.updateReview(reviewId, dto));
+    }
+
     @DeleteMapping("/{reviewId}")
-    public ResponseEntity<?> deleteProduct(@PathVariable @Positive(message = "reviewId must be positive") Long reviewId) {
+    public ResponseEntity<?> deleteReview(@PathVariable @Positive(message = "reviewId must be positive") Long reviewId) {
         reviewService.deleteReview(reviewId);
         return ResponseEntity.noContent().build();
     }

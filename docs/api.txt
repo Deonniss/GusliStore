@@ -44,7 +44,7 @@ GET /roles
 + GET /reviews/{product_id}
 + GET /reviews/{user_id}/{product_id}
 + POST /reviews/{userId}/{productId}
-PUT /reviews/{product_id}/{review_id}
-DELETE /reviews/{review_id}
-GET /reviews/{user_id}
++ PUT /reviews/{product_id}/{review_id}
++ DELETE /reviews/{review_id}
++ GET /reviews/{user_id}
 

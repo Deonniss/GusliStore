@@ -59,6 +59,19 @@ public class ReviewService {
 
     @SneakyThrows
     @Transactional
+    public ReviewDto updateReview(Long reviewId, ReviewDto dto) {
+        Review review =  reviewRepository.findById(reviewId).orElseThrow();
+        Product product = review.getProduct();
+        product.minusReview(review.getRating());
+        review.setComment(dto.getComment());
+        review.setRating(dto.getRating());
+        product.addReview(review.getRating());
+        productService.saveProduct(product);
+        return reviewMapper.toDto(reviewRepository.save(review));
+    }
+
+    @SneakyThrows
+    @Transactional
     public void deleteReview(Long reviewId) {
         Review review =  reviewRepository.findById(reviewId).orElseThrow();
         Product product = review.getProduct();
