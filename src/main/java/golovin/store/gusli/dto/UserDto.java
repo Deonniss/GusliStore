@@ -28,6 +28,8 @@ public class UserDto {
     @NotBlank
     private String lastName;
 
+    private boolean locked;
+
     @JsonProperty(access = WRITE_ONLY)
     private String password;
 

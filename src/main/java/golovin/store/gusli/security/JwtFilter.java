@@ -1,6 +1,5 @@
 package golovin.store.gusli.security;
 
-import golovin.store.gusli.security.exception.TokenNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,22 +8,20 @@ import lombok.SneakyThrows;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.util.Set;
+
+import static golovin.store.gusli.security.JwtHandler.getToken;
 
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final String AUTHORIZATION = "Authorization";
-    private static final String BEARER_PREFIX = "Bearer ";
-
     private final JwtHandler jwtHandler;
     private final UserAuthenticationBearer userAuthenticationBearer;
 
-    private final Set<String> ALLOWED_URL = Set.of("/api/v1/auth/login", "/api/v1/auth/register");
+    private final Set<String> ALLOWED_URL = Set.of("/api/v1/auth/login/username", "/api/v1/auth/login/email","/api/v1/auth/register");
 
     @Override
     @SneakyThrows
@@ -35,20 +32,17 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        final String token = getTokenFromRequest(request);
+        final String token = getToken(request);
+
         try {
-            SecurityContextHolder.getContext().setAuthentication(userAuthenticationBearer.create(jwtHandler.check(token)));
+            JwtHandler.VerificationResult verificationResult = jwtHandler.check(token);
+            request.setAttribute("userId", Long.parseLong(verificationResult.claims.getSubject()));
+            SecurityContextHolder.getContext().setAuthentication(userAuthenticationBearer.create(verificationResult));
         } catch (Exception ex) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
         }
         filterChain.doFilter(request, response);
     }
 
-    private String getTokenFromRequest(HttpServletRequest request) {
-        final String bearer = request.getHeader(AUTHORIZATION);
-        if (StringUtils.hasText(bearer) && bearer.startsWith(BEARER_PREFIX)) {
-            return bearer.substring(BEARER_PREFIX.length());
-        }
-        throw new TokenNotFoundException();
-    }
+
 }

@@ -21,8 +21,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Bean
     public AuthenticationProvider myAuthenticationProvider() {

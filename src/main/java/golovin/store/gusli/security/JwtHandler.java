@@ -1,15 +1,21 @@
 package golovin.store.gusli.security;
 
+import golovin.store.gusli.security.exception.TokenNotFoundException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.util.Base64;
 import java.util.Date;
 
 @Component
 public class JwtHandler {
+
+    private static final String AUTHORIZATION = "Authorization";
+    private static final String BEARER_PREFIX = "Bearer ";
 
     @Value("${jwt.secret}")
     private String secret;
@@ -32,6 +38,15 @@ public class JwtHandler {
                 .setSigningKey(Base64.getEncoder().encodeToString(secret.getBytes()))
                 .parseClaimsJws(token)
                 .getBody();
+    }
+
+    public static String getToken(HttpServletRequest request) {
+        final String bearer = request.getHeader(AUTHORIZATION);
+        if (StringUtils.hasText(bearer) && bearer.startsWith(BEARER_PREFIX)) {
+            return bearer.substring(BEARER_PREFIX.length());
+        }
+        throw new TokenNotFoundException();
+
     }
 
     public static class VerificationResult {

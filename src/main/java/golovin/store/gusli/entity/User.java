@@ -33,6 +33,7 @@ public class User  implements UserDetails {
     private String firstName;
     private String lastName;
     private String username;
+    private boolean locked;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @Fetch(FetchMode.SELECT)
@@ -70,7 +71,7 @@ public class User  implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
 
     @Override

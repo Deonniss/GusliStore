@@ -34,6 +34,11 @@ public class SecurityService {
             case EMAIL -> userService.getUserByEmail(loginName);
             case USERNAME -> userService.getUserByUsername(loginName);
         };
+
+        if (user.isLocked()) {
+            throw new RuntimeException("User locked");
+        }
+
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new RuntimeException("Not authenticated");
         }

@@ -30,6 +30,9 @@
             <column name="last_name" type="varchar(32)">
                 <constraints nullable="false"/>
             </column>
+            <column name="locked" type="boolean">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_at" type="timestamp with time zone">
                 <constraints nullable="false"/>
             </column>
@@ -56,6 +59,7 @@
             <column name="first_name" value="admin"/>
             <column name="last_name" value="admin"/>
             <column name="username" value="admin"/>
+            <column name="locked" value="false"/>
             <column name="created_at" value="2023-05-09 12:30:00+03"/>
             <column name="updated_at" value="2023-05-09 12:30:00+03"/>
             <column name="password" value="$2a$10$v3kAuRxS90iNdcKmNLZNBeN1a3oegt/4wZHOicER4J7VUAjOC4I5."/>
@@ -79,6 +83,7 @@
             <column name="first_name" value="user"/>
             <column name="last_name" value="user"/>
             <column name="username" value="user"/>
+            <column name="locked" value="false"/>
             <column name="created_at" value="2023-05-09 12:30:00+03"/>
             <column name="updated_at" value="2023-05-09 12:30:00+03"/>
             <column name="password" value="$2a$10$26DW74oqXmQLZVBCYg/t0.cBs/YxVqIrGMKAefuM6olgtHcoRPjgS"/>

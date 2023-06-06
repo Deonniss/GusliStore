@@ -30,13 +30,20 @@ public class UserService implements UserDetailsService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-
     @Transactional
     @SneakyThrows
     public UserDto registerUser(UserDto dto) {
         User user = userRepository.save(userMapper.toEntity(dto, passwordEncoder.encode(dto.getPassword()), getRoleSetForUser()));
         cartService.createCart(user);
         return userMapper.toDto(user);
+    }
+
+    @Transactional
+    @SneakyThrows
+    public UserDto lockUser(Long userId, Boolean locked) {
+        User user = userRepository.findById(userId).orElseThrow();
+        user.setLocked(locked);
+        return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
@@ -63,6 +70,11 @@ public class UserService implements UserDetailsService {
     @SneakyThrows
     public UserDto getUser(Long userId) {
         return userMapper.toDto(userRepository.findById(userId).orElseThrow());
+    }
+
+    @SneakyThrows
+    public boolean isLocked(Long userId) {
+        return userRepository.isLocked(userId);
     }
 
     @SneakyThrows
