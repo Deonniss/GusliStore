@@ -22,7 +22,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="username" type="varchar(32)">
-                <constraints nullable="false"/>
+                <constraints unique="true" nullable="false"/>
             </column>
             <column name="first_name" type="varchar(32)">
                 <constraints nullable="false"/>

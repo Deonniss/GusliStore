@@ -1,6 +1,7 @@
 package golovin.store.gusli.service;
 
 import golovin.store.gusli.common.PageableResponse;
+import golovin.store.gusli.dto.CartDto;
 import golovin.store.gusli.dto.OrderDto;
 import golovin.store.gusli.dto.OrderItemDto;
 import golovin.store.gusli.dto.ProductDto;
@@ -21,6 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static golovin.store.gusli.entity.type.StatusType.CREATED;
 
 @Service
@@ -38,6 +42,7 @@ public class OrderService {
     private final ProductService productService;
     private final StatusService statusService;
     private final UserService userService;
+    private final CartService cartService;
 
     @SneakyThrows
     public OrderDto getOrder(Long orderId) {
@@ -60,6 +65,23 @@ public class OrderService {
         Status status = statusService.getByType(CREATED);
         fillProducts(dto);
         return orderMapper.toDto(orderRepository.save(orderMapper.performAfterMapping(orderMapper.toEntity(dto, user, status))));
+    }
+
+    @SneakyThrows
+    @Transactional
+    public OrderDto registerOrderByUserId(Long userId) {
+        User user = userService.getById(userId);
+        Status status = statusService.getByType(CREATED);
+        CartDto cart = cartService.getCart(userId);
+        Set<OrderItem> orderItems = getOrderItemsByCart(cart);
+        Order order = orderMapper.performAfterMapping(Order.builder()
+                .user(user)
+                .status(status)
+                .totalQuantity(cart.getTotalQuantity())
+                .totalCost(cart.getTotalCost())
+                .items(orderItems)
+                .build());
+        return orderMapper.toDto(orderRepository.save(order));
     }
 
     @SneakyThrows
@@ -92,6 +114,21 @@ public class OrderService {
         order.minusQuantity(orderItem.getQuantity());
         order.minusCost(orderItem.getPrice());
         orderItemRepository.deleteById(orderItemId);
+    }
+
+    @SneakyThrows
+    private Set<OrderItem> getOrderItemsByCart(CartDto cart) {
+        Set<OrderItem> orderItems = new HashSet<>();
+        cart.getItems().forEach(i -> {
+                    OrderItem orderItem = OrderItem.builder()
+                            .price(i.getPrice())
+                            .quantity(i.getQuantity())
+                            .product(productService.getById(i.getProduct().getId()))
+                            .build();
+                    orderItems.add(orderItem);
+                }
+        );
+        return orderItems;
     }
 
     @SneakyThrows

@@ -35,7 +35,12 @@ public class OrderRestController {
         return ResponseEntity.ok(orderService.getOrders(userId, pageable));
     }
 
-    @PostMapping("/{userId}")
+    @PostMapping("/withCart/{userId}")
+    public ResponseEntity<OrderDto> createOrderByCart(@PathVariable @Positive(message = "userId must be positive") Long userId) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderService.registerOrderByUserId(userId));
+    }
+
+    @PostMapping("/withOrderDto/{userId}")
     public ResponseEntity<OrderDto> createOrder(@PathVariable @Positive(message = "userId must be positive") Long userId,
                                                 @RequestBody @Valid OrderDto dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.registerOrder(userId, dto));

@@ -20,7 +20,7 @@ public class CartItemDto {
     private Integer quantity;
 
     @JsonProperty(access = READ_ONLY)
-    private Integer price;
+    private Double price;
 
     @JsonProperty(access = READ_ONLY)
     private ProductDto product;

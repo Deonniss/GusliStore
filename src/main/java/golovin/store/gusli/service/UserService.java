@@ -26,13 +26,17 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final CartService cartService;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+
 
     @Transactional
     @SneakyThrows
     public UserDto registerUser(UserDto dto) {
-        return userMapper.toDto(userRepository.save(userMapper.toEntity(dto, passwordEncoder.encode(dto.getPassword()), getRoleSetForUser())));
+        User user = userRepository.save(userMapper.toEntity(dto, passwordEncoder.encode(dto.getPassword()), getRoleSetForUser()));
+        cartService.createCart(user);
+        return userMapper.toDto(user);
     }
 
     @Override

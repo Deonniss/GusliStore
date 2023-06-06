@@ -86,13 +86,13 @@ public class CartService {
         return cartItem;
     }
 
-
-    /**
-     * TODO Корзина создается только при создании пользователя !!!
-     *
-     * @param user
-     */
+    @Transactional
+    @SneakyThrows
     public void createCart(User user) {
-
+        cartRepository.save(Cart.builder()
+                .user(user)
+                .totalQuantity(0)
+                .totalCost(0d)
+                .build());
     }
 }
